@@ -23,6 +23,10 @@ gem "jbuilder"
 gem "faker"
 gem "aws-sdk-s3"
 
+group :production do
+  gem "passenger", ">= 5.3.2", require: "phusion_passenger/rack_handler"
+end
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "byebug", platforms: %i[ mri mingw x64_mingw ]
