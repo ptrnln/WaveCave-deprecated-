@@ -3,6 +3,7 @@ import TrackIndexItem from "./TrackIndexItem";
 import { useDispatch, useSelector } from "react-redux";
 import * as trackActions from '../../store/track'
 import './TrackIndex.css'
+import routeToAPI from "../../store/api";
 
 export default function TrackIndex() {
     const [loaded, setLoaded] = useState(false);
@@ -11,7 +12,7 @@ export default function TrackIndex() {
 
     useEffect(() => {
         (async () => { 
-            const response = await fetch('/api/tracks')
+            const response = await fetch(routeToAPI('/api/tracks'))
             const tracksData = await response.json();
             dispatch(trackActions.receiveTracks(tracksData.tracks))
             setLoaded(true);

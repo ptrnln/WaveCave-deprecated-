@@ -4,7 +4,7 @@ import * as trackActions from '../../store/track'
 import * as audioPlayerActions from '../../store/audioPlayer'
 import './TrackIndexItem.css'
 import csrfFetch from "../../store/csrf";
-
+import routeToAPI from "../../store/api";
 
 export default function TrackIndexItem({ track }) {
     const currentUser = useSelector(state => state.session.user)
@@ -24,7 +24,7 @@ export default function TrackIndexItem({ track }) {
         await dispatch(audioPlayerActions.dequeueTrack(e.target.value));
         await dispatch(trackActions.removeTrack(e.target.value));
 
-        const response = await csrfFetch(`/api/tracks/${e.target.value}`, {
+        const response = await csrfFetch(routeToAPI(`/api/tracks/${e.target.value}`), {
             method: 'DELETE'
         })
         

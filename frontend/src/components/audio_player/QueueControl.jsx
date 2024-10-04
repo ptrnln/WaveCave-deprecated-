@@ -2,6 +2,12 @@ import { useSelector } from "react-redux"
 import QueueItem from "./QueueItem";
 import { useState } from "react";
 import './QueueControl.css'
+import * as playlistActions from '../../store/playlist.js'
+
+const handlePlaylistSave = (e) => {
+    e.preventDefault();
+    
+}
 
 export default function QueueControl () {
     const [display, setDisplay] = useState(false)
@@ -29,7 +35,10 @@ export default function QueueControl () {
             </button>
             { display &&
             (<div className="queue-control-inner">
-                <div className="queue-control-header">Next Up</div>
+                <div className="queue-control-header">
+                    <span>Next Up</span>
+                    <button onClick={handlePlaylistSave}>Save Playlist</button>
+                </div>
                 <ul className="queue">
                     { tracks.map(track => <li key={`${track.title}`}><QueueItem track={track}/></li>)}
                 </ul>

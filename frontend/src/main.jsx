@@ -11,15 +11,7 @@ import * as trackActions from './store/track'
 import * as audioPlayerActions from './store/audioPlayer';
 
 const store = configureStore();
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-);
-
+window.env = { "environment":import.meta.env.MODE }
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
   window.store = store;
@@ -30,3 +22,12 @@ if (import.meta.env.MODE !== 'production') {
   window.trackActions = trackActions;
   window.audioPlayerActions = audioPlayerActions;
 }
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);

@@ -1,26 +1,28 @@
+import routeToAPI from "./api";
+
 async function csrfFetch(url, options = {}) {
     options.headers ||= {};
     options.method ||= 'GET'
-    
+
+    options.credentials = "include"
 
     if(options.method.toUpperCase() !== 'GET' ) {
         if(!(options.body?.constructor?.name === 'FormData')) options.headers['Content-Type'] ||= 'application/json'
-        options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token')/* || 
-            (await restoreCSRF()).headers.get('X-CSRF-Token'); */
+        if(window.env["environment"] !== "production") options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token')
     }
 
     try {
-        const res = await fetch(url, options);
+        const res = await fetch(routeToAPI(url), options);
     
         return res;
     } catch(err) {
         return(err);
     }
 
-    }
+}
 
 export async function restoreCSRF() {
-    const response = await csrfFetch('/api/session')
+    const response = await csrfFetch(routeToAPI('/api/session'))
     storeCSRFToken(response)
     return response;
 }

@@ -4,13 +4,15 @@ import sessionReducer from './session';
 import userReducer from './user';
 import { audioPlayerReducer } from './audioPlayer';
 import trackReducer from './track';
+import playlistReducer from './playlist';
 
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     users: userReducer,
     audio: audioPlayerReducer,
-    tracks: trackReducer
+    tracks: trackReducer,
+    playlists: playlistReducer
 });
 
 let enhancer;

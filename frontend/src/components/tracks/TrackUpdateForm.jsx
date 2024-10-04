@@ -4,6 +4,7 @@ import csrfFetch from "../../store/csrf";
 import './TrackUpdateForm.css';
 import * as trackActions from '../../store/track';
 import { useDispatch, useSelector } from "react-redux";
+import routeToAPI from "../../store/api";
 
 
 
@@ -70,7 +71,7 @@ export default function TrackUpdateForm() {
 
     useEffect(() => {
         async function getTrackData() {
-            const response = await csrfFetch(`/api/users/${username}/tracks/${title}`);
+            const response = await csrfFetch(routeToAPI(`/api/users/${username}/tracks/${title}`));
 
             if(response.ok) {
                 const data = await response.json();

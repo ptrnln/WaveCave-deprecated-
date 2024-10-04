@@ -56,7 +56,7 @@ export default function TrackUploadForm() {
     const getFileType = (fileName) => {
         const matchData = fileName.match(generateFileTypeRegEx(SUPPORTED_MIME_TYPES))
         if (matchData) {
-            return matchData[1]
+            return matchData[1] === "mp3" ? "mpeg": matchData[1]
         } 
         return null
     }

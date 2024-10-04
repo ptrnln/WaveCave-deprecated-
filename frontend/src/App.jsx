@@ -15,6 +15,7 @@ import HomePage from './HomePage';
 import TrackIndex from './components/tracks/TrackIndex';
 import ErrorPage from './ErrorPage';
 import './app.css'
+import routeToAPI from './store/api';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -54,8 +55,8 @@ function Layout() {
 
 
 const userLoader = async ({ params }) => {
-  
-  const response = await fetch(`/api/users/@${params.username}`);
+  window.env ||= { "environment":import.meta.env.MODE}
+  const response = await fetch(routeToAPI(`/api/users/@${params.username}`));
   
   if(response.ok) {
     const data = await response.json();
@@ -66,7 +67,7 @@ const userLoader = async ({ params }) => {
 }
 
 const trackLoader = async ({ params }) => {
-  const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => {throw reasons})
+  const response = await fetch(routeToAPI(`/api/users/${params.username}/tracks/${params.title}`)).catch((reasons) => {throw reasons})
   
   
   if(response.ok) {
@@ -106,26 +107,26 @@ const router = createBrowserRouter([
         path: '/@/:username',
         loader: userLoader,
         element: <UserView />,
-        errorElement: <ErrorPage />,
         children: [
           {
             path: ':title',
             loader: trackLoader,
             element: <TrackView />,
-            errorElement: <ErrorPage />,
             children: [
               {
                 path: 'update',
                 element: <TrackUpdateForm />,
-                // errorElement: <ErrorPage />
               }
             ]
           }
         ]
       },
     ],
-  }
-]);
+    errorElement: <ErrorPage />,
+  },
+], {
+  basename: import.meta.env.MODE === "production" ? "/wavecave" : "/"
+});
 
 function App() {
   return <RouterProvider router={router} />;

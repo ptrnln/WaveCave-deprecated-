@@ -6,6 +6,8 @@ import logo from '/images/WaveCave logo HomeNavLink.svg';
 import * as audioPlayerActions from '../../store/audioPlayer';
 import * as trackActions from '../../store/track';
 import * as sessionActions from '../../store/session';
+import routeToAPI from "../../store/api";
+
 
 
 
@@ -28,7 +30,7 @@ const Navigation = () => {
     const handleLoadTracks = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/tracks');
+            const response = await fetch(routeToAPI('/api/tracks'));
             const data = await response.json();
             
             const tracks = data.tracks;

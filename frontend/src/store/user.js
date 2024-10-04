@@ -1,4 +1,4 @@
-
+import routeToAPI from "./api"
 
 const RECEIVE_USER = 'users/RECEIVE_USER'
 const RECEIVE_USERS = 'users/RECEVE_USERS'
@@ -20,7 +20,7 @@ export const receiveUser = user => {
 }
 
 export const viewUser = ({ username }) => async dispatch => {
-    const response = await fetch(`/api/users/${username}`);
+    const response = await fetch(routeToAPI(`/api/users/@${username}`));
 
     if(response.ok) {
         const data = await response.json();

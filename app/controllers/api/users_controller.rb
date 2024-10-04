@@ -20,9 +20,10 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: CGI.unescape(params[:username]))
+    @user = User.find_by(username: CGI.unescape(params[:username])) if params[:username]
     @user ||= User.find_by(email: params[:credential])
     @user ||= User.find_by(username: params[:credential])
+    @user ||= User.find(params[:id])
     
     if @user
       render '/api/users/show'

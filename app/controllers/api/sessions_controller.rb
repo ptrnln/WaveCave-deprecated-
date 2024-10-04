@@ -34,6 +34,8 @@ class Api::SessionsController < ApplicationController
     def destroy
         if current_user && logout! 
             render json: { message: 'success' } 
+        else
+            render json: { message: 'failure' }, status: :bad_request
         end
     end
 end
