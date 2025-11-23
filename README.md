@@ -1,3 +1,7 @@
+$ Deprecated
+
+This repository is not up-to-date with production and is therefore deprecated, a link to the updated repository will soon be posted.
+
 # Spelunk into the WaveCave!
 
 Drop your bops at the [live site!](https://wavecave-2rxw.onrender.com)
